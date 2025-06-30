@@ -1,4 +1,4 @@
-name: Playwright Scraper
+name: Playwright Tests
 
 on:
   workflow_dispatch:  # Allows manual trigger from GitHub UI
@@ -19,14 +19,25 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+      - name: Download previous articles.json
+        uses: actions/download-artifact@v4
+        with:
+          name: articles
+          path: .
 
-      - name: Run scraper script
-        run: npx playwright test tests/linksautomation.spec.ts
+      - name: Run Playwright tests
+        run: npx playwright test
 
-      - name: Upload markdown file
+      - name: Upload updated articles.json
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: combined-articles
-          path: combined-articles.md  # change this to whatever your script outputs
+          name: articles
+          path: articles.json
+
+      - name: Upload Markdown result
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: article-markdown
+          path: combined-articles.md  # Update this if your file has a different name
