@@ -1,7 +1,7 @@
 name: Playwright Tests
 
 on:
-  workflow_dispatch:  # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   test:
@@ -18,6 +18,12 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        # add working-directory if your package.json is not in root
+
+      - name: Install Playwright Browsers
+        run: npx playwright install
+        # add working-directory if your package.json is not in root
 
       - name: Run Playwright tests
         run: npx playwright test linksautomation.spec.ts
+        # add working-directory if your package.json is not in root
