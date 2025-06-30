@@ -19,25 +19,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Download previous articles.json
-        uses: actions/download-artifact@v4
-        with:
-          name: articles
-          path: .
-
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test tests/linksautomation.spec.ts
 
-      - name: Upload updated articles.json
-        if: success()
-        uses: actions/upload-artifact@v4
+      - name: Upload articles artifact
+        uses: actions/upload-artifact@v3
         with:
           name: articles
-          path: articles.json
-
-      - name: Upload Markdown result
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: article-markdown
-          path: combined-articles.md  # Update this if your file has a different name
+          path: |
+            combined-articles.md
+            articles.json
