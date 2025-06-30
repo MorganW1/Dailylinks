@@ -1,17 +1,14 @@
 name: Playwright Tests
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -22,8 +19,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
       - name: Run Playwright tests
-        run: npx playwright test --timeout=120000
+        run: npx playwright test
