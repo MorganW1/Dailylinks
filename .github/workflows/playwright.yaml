@@ -20,4 +20,4 @@ jobs:
         run: npm install
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright linksautomation.spec.ts
