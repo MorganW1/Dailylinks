@@ -1,7 +1,7 @@
 {
   "name": "playwright-scraper",
   "version": "1.0.0",
-  "description": "Playwright scraper for wrestlinginc.com and nme.com",
+  "description": "Playwright links checker",
   "scripts": {
     "test": "playwright test"
   },
