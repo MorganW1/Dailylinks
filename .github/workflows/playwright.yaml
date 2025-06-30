@@ -1,7 +1,7 @@
 name: Playwright Tests
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
 
 jobs:
   test:
@@ -18,12 +18,18 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        # add working-directory if your package.json is not in root
 
-      - name: Install Playwright Browsers
+      - name: Install Playwright browsers
         run: npx playwright install
-        # add working-directory if your package.json is not in root
 
       - name: Run Playwright tests
-        run: npx playwright test linksautomation.spec.ts
-        # add working-directory if your package.json is not in root
+        run: npx playwright test tests/linksautomation.spec.ts
+
+      - name: Upload Markdown file
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraped-articles
+          path: |
+            articles.md
+            wrestlinginc-articles.md
+
