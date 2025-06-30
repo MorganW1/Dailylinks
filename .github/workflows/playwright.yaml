@@ -19,12 +19,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
       - name: Download previous articles.json
         uses: actions/download-artifact@v4
         with:
           name: articles
           path: .
-        continue-on-error: true  # Skip if no previous artifact exists
+        continue-on-error: true
 
       - name: Run Playwright tests
         run: npx playwright test
